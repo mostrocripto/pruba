@@ -1,0 +1,81 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+import telegram
+
+TELEGRAM_TOKEN= "1034610233:AAEzLizs7SMDLOGLpDf2hvLyXihTnnP9Bsg"
+
+opts = Options()
+opts.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36")
+s = Service("C:\\Users\\cata\\PycharmProjects\\Selenium\\chromedriver.exe")
+options = webdriver.ChromeOptions()
+options.add_argument('--start-maximized')
+options.add_argument('--disable-extensions')
+driver = webdriver.Chrome(service=s)
+driver.maximize_window()
+
+driver.get('https://ecomas.cl/inicio-sesion?back=my-account')
+#PARAMETROS PARA LOGEAR
+
+login = "peliculasdvd007@gmail.com"
+password = "xaoxao123"
+
+input_user = WebDriverWait(driver, 1).until(
+    EC.presence_of_element_located((By.XPATH,'/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/form/div/div[1]/input')))
+input_password = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/form/div/div[2]/input')
+
+input_user.send_keys(login)
+input_password.send_keys(password)
+
+botonIniciarS = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/form/div/p[2]/button/span')
+botonIniciarS.click()
+
+time.sleep(5)
+
+#botonInicio = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/header/div[2]/div[1]/div/div[2]/div/nav/ul/li[1]/a')
+#botonInicio.click()
+
+botonpellet = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div/div/ul/li[1]/a')
+botonpellet.click()
+time.sleep(5)
+#botonbolsas = driver.find_element(By.XPATH, '//*[@id="attributes"]/div[2]/div/div/div')
+#botonbolsas.click()
+
+time.sleep(5)
+#seleccionbolsas = driver.find_element(By.XPATH,'/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[1]/div[2]/div/form/div/div[1]/div/div[2]/div/div/div/div/select/option[2]')
+#seleccionbolsas.click()
+
+agregarCarro = driver.find_element(By.XPATH,'/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[1]/div[2]/div/form/div/div[3]/div/p/button/span')
+agregarCarro.click()
+
+time.sleep(5)
+
+
+time.sleep(15)
+
+#BUCLE WHILE PARA QUE REPITA LAS SIGUIENTES LINEAS, DEPENDIENTO SI SE CUMPLEN LAS CONDICIONES
+while True:
+#APARTO LAS VARIABLES CON EL NOMBRE A BUSCAR PARA ASI PODER HACER LAS EXCEPCIONES
+    noesposible = driver.find_element(By.XPATH,'//p[@class="alert alert-warning"]').text
+
+    textoSeleccionar = '- No estamos efectuando ventas en tu ciudad por abastecimiento limitado de pellet'
+#SI SON IGUALES AL TEXTO QUE APARECE HARA F5 CADA 5 MINUTOS
+    if noesposible == textoSeleccionar:
+        driver.refresh()
+        time.sleep(300)
+
+
+#SI ES DISTINTO AL TEXTOSELECCIONAR, ENVIARA ALERTA AL TELEGRAM
+    elif noesposible != textoSeleccionar:
+
+        bot = telegram.Bot(TELEGRAM_TOKEN)
+        bot.send_message(chat_id="-1001117671580", text='PELLET DISPONIBLE!')
+        time.sleep(5)
+
+
+
+
