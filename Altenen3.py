@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.service import Service
 import telegram
 from anticaptchaofficial.recaptchav2proxyless import *
 
-TELEGRAM_TOKEN= "1034610233:AAEzLizs7SMDLOGLpDf2hvLyXihTnnP9Bsg"
+TELEGRAM_TOKEN= ""
 
 def send_message():
     bot =telegram.Bot(TELEGRAM_TOKEN)
@@ -16,7 +16,7 @@ def send_message():
 ########################################################################################################################
 opts = Options()
 opts.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36")
-s = Service("C:\\Users\\cata\\PycharmProjects\\Selenium\\chromedriver.exe")
+s = Service("")
 options = webdriver.ChromeOptions()
 options.add_argument('--start-maximized')
 options.add_argument('--disable-extensions')
@@ -24,13 +24,13 @@ driver = webdriver.Chrome(service=s)
 driver.maximize_window()
 
 
-driver.get('https://altenens.is/forums/accounts-and-database-dumps.45/'
+driver.get(''
 
            )
-url= 'https://altenens.is/forums/accounts-and-database-dumps.45/'
+url= ''
 #PARAMETROS PARA LOGEAR
-login = "moustro3"
-password = "xaoxao321"
+login = ""
+password = ""
 
 
 
@@ -52,7 +52,7 @@ sitekey_clean = sitekey.split(" data-invisible=")[0].split(" data-sitekey=")[1].
 
 solver = recaptchaV2Proxyless()
 solver.set_verbose(1)
-solver.set_key('987fca8b628be7693d4dd873a115aeb3')
+solver.set_key('')
 solver.set_website_url(url)
 solver.set_website_key(sitekey_clean)
 
@@ -97,13 +97,13 @@ while True:
         time.sleep(50)
         driver.back()
     elif temporalidad_dos == amomentago:
-        TELEGRAM_TOKEN = "1034610233:AAEzLizs7SMDLOGLpDf2hvLyXihTnnP9Bsg"
+        TELEGRAM_TOKEN = ""
         clicUsuario_dos = driver.find_element(By.XPATH,
                                                 '/html/body/div[1]/div[4]/div/div/div[3]/div/div/div[2]/div[2]/div[2]/div/div[4]/div[2]/div[2]/div[2]/ul/li[2]/a/time')
         clicUsuario_dos.click()
         cecinaFinal_dos = driver.find_element(By.XPATH, '//div[@class="bbWrapper"]').text
         bot = telegram.Bot(TELEGRAM_TOKEN)
-        bot.send_message(chat_id="-1001117671580", text=cecinaFinal_dos)
+        bot.send_message(chat_id="-", text=cecinaFinal_dos)
         print(cecinaFinal_dos)
         time.sleep(50)
         driver.back()
