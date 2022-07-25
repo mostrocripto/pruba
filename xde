@@ -21,8 +21,8 @@ driver.maximize_window()
 driver.get('https://ecomas.cl/inicio-sesion?back=my-account')
 #PARAMETROS PARA LOGEAR
 
-login = "peliculasdvd007@gmail.com"
-password = "xaoxao123"
+login = ""
+password = "x"
 
 input_user = WebDriverWait(driver, 1).until(
     EC.presence_of_element_located((By.XPATH,'/html/body/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/form/div/div[1]/input')))
